@@ -1,0 +1,25 @@
+{
+  "name": "astro-cli",
+  "version": "1.0.0",
+  "description": "A CLI tool for generating components, layouts and APIs in Astro projects",
+  "main": "astro-cli.js",
+  "bin": {
+    "astro-cli": "./astro-cli.js"
+  },
+  "keywords": [
+    "astro",
+    "component",
+    "layout",
+    "generator",
+    "cli"
+  ],
+  "author": "SugarFree - matias.donoso.q@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "0.12.7"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
