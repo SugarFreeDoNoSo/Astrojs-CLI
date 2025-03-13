@@ -1,5 +1,5 @@
 {
-  "name": "astro-cli-tool",
+  "name": "astrx",
   "version": "0.0.1",
   "description": "A CLI tool for generating components, layouts and APIs in Astro projects",
   "main": "astro-cli.js",

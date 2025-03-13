@@ -1,10 +1,10 @@
-# Astro-CLI
+# astrx
 
 A CLI tool for automatically generating components, layouts, and APIs in Astro projects.
 
 ## Description
 
-Astro-CLI allows you to quickly create components, layouts, and API endpoints following Astro naming conventions and structure, as well as automatically updating pages to include the new elements.
+astrx allows you to quickly create components, layouts, and API endpoints following Astro naming conventions and structure, as well as automatically updating pages to include the new elements.
 
 ## Features
 
@@ -18,20 +18,20 @@ Astro-CLI allows you to quickly create components, layouts, and API endpoints fo
 ## Installation
 
 ```bash
-npm install -g astro-CLI
+npm install -g astrx
 ```
 
 Or use it directly with npx:
 
 ```bash
-npx astro-CLI [command] [item-names...] [options]
+npx astrx [command] [item-names...] [options]
 ```
 
 ## Usage
 
 ### Commands and Aliases
 
-Astro-CLI supports the following commands with short aliases:
+astrx supports the following commands with short aliases:
 
 | Full Command    | Alias | Description                  |
 |-----------------|-------|------------------------------|
@@ -43,10 +43,10 @@ Astro-CLI supports the following commands with short aliases:
 
 ```bash
 # Create multiple components
-npx astro-CLI add-component Button Card Form
+npx astrx add-component Button Card Form
 
 # Using the short alias
-npx astro-CLI -c Button Card Form
+npx astrx -c Button Card Form
 ```
 
 These commands create multiple components in `src/components/`.
@@ -55,10 +55,10 @@ These commands create multiple components in `src/components/`.
 
 ```bash
 # Create components and add them to a page
-npx astro-CLI add-component Button Card -p contact
+npx astrx add-component Button Card -p contact
 
 # Using the short alias
-npx astro-CLI -c Button Card -p contact
+npx astrx -c Button Card -p contact
 ```
 
 These commands:
@@ -70,10 +70,10 @@ These commands:
 
 ```bash
 # Create multiple layouts
-npx astro-CLI add-layout MainLayout PostLayout
+npx astrx add-layout MainLayout PostLayout
 
 # Using the short alias
-npx astro-CLI -l MainLayout PostLayout
+npx astrx -l MainLayout PostLayout
 ```
 
 These commands create multiple layouts in `src/layouts/`.
@@ -82,10 +82,10 @@ These commands create multiple layouts in `src/layouts/`.
 
 ```bash
 # Create a layout and add it to a page
-npx astro-CLI add-layout PostLayout -p blog
+npx astrx add-layout PostLayout -p blog
 
 # Using the short alias
-npx astro-CLI -l PostLayout -p blog
+npx astrx -l PostLayout -p blog
 ```
 
 These commands:
@@ -97,16 +97,16 @@ These commands:
 
 ```bash
 # Create API with default GET method
-npx astro-CLI add-api UserAPI
+npx astrx add-api UserAPI
 
 # Create API with specific HTTP method
-npx astro-CLI add-api UserAPI -m POST
+npx astrx add-api UserAPI -m POST
 
 # Create multiple API endpoints
-npx astro-CLI add-api UserAPI ProductAPI
+npx astrx add-api UserAPI ProductAPI
 
 # Using the short alias
-npx astro-CLI -a UserAPI -m PUT
+npx astrx -a UserAPI -m PUT
 ```
 
 These commands create API endpoints in `src/pages/api/` with the specified HTTP methods.
@@ -115,7 +115,7 @@ These commands create API endpoints in `src/pages/api/` with the specified HTTP 
 
 ```bash
 # Add PUT method to an existing API
-npx astro-CLI add-api UserAPI -m PUT
+npx astrx add-api UserAPI -m PUT
 ```
 
 This command adds a PUT method to an existing UserAPI endpoint. If the method already exists, it will show an error.
