@@ -25,12 +25,6 @@ jobs:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org/'
           
-      - name: Instalar dependencias
-        run: npm ci
-        
-      - name: Incrementar versión
-        run: npm version patch -m "Bump version to %s [skip ci]"
-          
       - name: Publicar en npm
         run: npm publish --access public
         env:
