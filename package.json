@@ -1,6 +1,6 @@
 {
-  "name": "astro-cli",
-  "version": "1.0.0",
+  "name": "astro-cli-tool",
+  "version": "0.0.1",
   "description": "A CLI tool for generating components, layouts and APIs in Astro projects",
   "main": "astro-cli.js",
   "bin": {
