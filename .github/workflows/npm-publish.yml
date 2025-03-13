@@ -25,10 +25,13 @@ jobs:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org/'
           
+      - name: Configurar autenticación npm explícita
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          cat ~/.npmrc
+          
       - name: Publicar en npm
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          
+        
       - name: Push cambios de versión
         run: git push --follow-tags 
