@@ -3,7 +3,7 @@ name: Publicar en npm
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   publish:
