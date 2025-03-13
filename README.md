@@ -191,3 +191,32 @@ export const POST: APIRoute = ({ params, request }) => {
 ## License
 
 MIT 
+
+## Development & Publication
+
+Este paquete utiliza GitHub Actions para automatizar la publicación en npm. Cada vez que se realiza un push al branch `main`, se ejecuta el siguiente proceso:
+
+1. Se incrementa automáticamente la versión del paquete en +0.0.1 (nivel patch)
+2. Se publica el paquete actualizado en npm con acceso público
+3. Se actualiza el repositorio con la nueva versión
+
+Para contribuir al desarrollo:
+
+1. Haz fork del repositorio
+2. Crea una rama para tu feature: `git checkout -b feature/nueva-funcionalidad`
+3. Haz commit de tus cambios: `git commit -am 'Añadir nueva funcionalidad'`
+4. Envía tus cambios: `git push origin feature/nueva-funcionalidad`
+5. Crea un pull request
+
+### Configuración para mantenedores
+
+Si tienes permisos de administrador del repositorio, necesitas:
+
+1. Configurar un secreto en GitHub:
+   - Ve a Settings > Secrets and variables > Actions
+   - Añade un secreto llamado `NPM_TOKEN` con tu token de publicación de npm
+
+2. Para obtener un token de npm:
+   - Inicia sesión en [npmjs.com](https://www.npmjs.com)
+   - Ve a tu perfil > Access Tokens
+   - Genera un nuevo token con permisos de publicación (publish) 
