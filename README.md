@@ -14,6 +14,8 @@ astrx allows you to quickly create components, layouts, and API endpoints follow
 - Automatic updating of existing pages to include new components/layouts
 - Automatic page creation if it doesn't exist
 - Support for creating multiple items in a single command
+- Auto-detection of dynamic route parameters in API endpoints ([param] syntax)
+- Support for nested API routes (e.g., 'users/[id]') with automatic directory creation
 
 ## Installation
 
@@ -107,9 +109,15 @@ npx astrx add-api UserAPI ProductAPI
 
 # Using the short alias
 npx astrx -a UserAPI -m PUT
+
+# Create API with dynamic route parameters
+npx astrx add-api users/[id] -m GET
+
+# Create nested API routes
+npx astrx add-api blog/posts/[id]/comments -m GET
 ```
 
-These commands create API endpoints in `src/pages/api/` with the specified HTTP methods.
+These commands create API endpoints in `src/pages/api/` with the specified HTTP methods. For nested routes like `blog/posts/[id]/comments`, the tool automatically creates all necessary subdirectories.
 
 ### Add another HTTP method to an existing API
 
@@ -183,6 +191,43 @@ export const POST: APIRoute = ({ params, request }) => {
   return new Response(
     JSON.stringify({
       message: 'This is the POST method for API-Name'
+    })
+  );
+};
+```
+
+When using dynamic route parameters with [param] syntax, the tool automatically extracts them:
+
+```typescript
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = ({ params, request }) => {
+  // Extraer parámetros de la URL
+  const id = params.id;
+
+  return new Response(
+    JSON.stringify({
+      message: 'This is the GET method for users/[id]',
+      id
+    })
+  );
+};
+```
+
+For nested routes, the same parameter extraction works:
+
+```typescript
+// src/pages/api/blog/posts/[id]/comments.ts
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = ({ params, request }) => {
+  // Extraer parámetros de la URL
+  const id = params.id;
+
+  return new Response(
+    JSON.stringify({
+      message: 'This is the GET method for blog/posts/[id]/comments',
+      id
     })
   );
 };

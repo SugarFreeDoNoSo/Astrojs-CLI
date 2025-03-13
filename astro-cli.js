@@ -86,8 +86,29 @@ function createApi(apiName, methodParam = 'GET') {
   const apiDir = path.join(process.cwd(), 'src/pages/api');
   ensureDirExists(apiDir);
   
+  // Extracción de parámetros dinámicos entre corchetes (formato [param])
+  const paramMatches = apiName.match(/\[([^\]]+)\]/g);
+  const params = paramMatches ? paramMatches.map(match => match.slice(1, -1)) : [];
+  
+  // Manejar rutas anidadas (con "/")
   const fileName = `${toKebabCase(apiName)}.ts`;
-  const filePath = path.join(apiDir, fileName);
+  let filePath = '';
+  
+  if (apiName.includes('/')) {
+    // Es una ruta anidada, necesitamos crear subdirectorios
+    const lastSlashIndex = apiName.lastIndexOf('/');
+    const dirPath = apiName.substring(0, lastSlashIndex);
+    const dirFullPath = path.join(apiDir, toKebabCase(dirPath));
+    
+    // Crear los subdirectorios necesarios
+    ensureDirExists(dirFullPath);
+    
+    // Construir la ruta completa del archivo
+    filePath = path.join(apiDir, toKebabCase(dirPath), `${toKebabCase(apiName.substring(lastSlashIndex + 1))}.ts`);
+  } else {
+    // Ruta simple, sin subdirectorios
+    filePath = path.join(apiDir, fileName);
+  }
   
   // Convert method to uppercase
   const method = methodParam.toUpperCase();
@@ -98,6 +119,16 @@ function createApi(apiName, methodParam = 'GET') {
     console.error(`Invalid HTTP method: ${method}. Must be one of: ${validMethods.join(', ')}`);
     process.exit(1);
   }
+  
+  // Generar código para los parámetros detectados
+  const paramsCode = params.length > 0 
+    ? `  // Extraer parámetros de la URL\n${params.map(param => `  const ${param} = params.${param};`).join('\n')}\n\n`
+    : '';
+  
+  // Generar código para incluir los parámetros en la respuesta
+  const paramsResponseCode = params.length > 0 
+    ? `,\n      ${params.map(param => `${param}`).join(',\n      ')}`
+    : '';
   
   // Check if file already exists
   if (fs.existsSync(filePath)) {
@@ -114,9 +145,9 @@ function createApi(apiName, methodParam = 'GET') {
     // Add the new method to the existing file
     const newMethodContent = `
 export const ${method}: APIRoute = ({ params, request }) => {
-  return new Response(
+${paramsCode}  return new Response(
     JSON.stringify({
-      message: 'This is the ${method} method for ${apiName}'
+      message: 'This is the ${method} method for ${apiName}'${paramsResponseCode}
     })
   );
 };`;
@@ -137,9 +168,9 @@ export const ${method}: APIRoute = ({ params, request }) => {
     const apiContent = `import type { APIRoute } from 'astro';
 
 export const ${method}: APIRoute = ({ params, request }) => {
-  return new Response(
+${paramsCode}  return new Response(
     JSON.stringify({
-      message: 'This is the ${method} method for ${apiName}'
+      message: 'This is the ${method} method for ${apiName}'${paramsResponseCode}
     })
   );
 };
